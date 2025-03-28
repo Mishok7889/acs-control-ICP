@@ -1,0 +1,17 @@
+{
+  "canisters": {
+    "access_control_system_backend": {
+      "candid": "src/access_control_system_backend/access_control_system_backend.did",
+      "package": "access_control_system_backend",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

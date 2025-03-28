@@ -1,0 +1,39 @@
+type Role = variant {
+  Admin;
+  Manager;
+  User;
+  Guest;
+};
+
+type RequestStatus = variant {
+  Pending;
+  Approved;
+  Denied;
+};
+
+type AccessRequest = record {
+  id: text;
+  requester: principal;
+  resource: text;
+  requested_at: nat64;
+  status: RequestStatus;
+  processed: bool;
+};
+
+service : {
+  // User management
+  "add_user": (principal, Role) -> ();
+  "remove_user": (principal) -> ();
+  "get_user_role": (principal) -> (opt Role) query;
+  
+  // Resource permissions
+  "add_resource_permission": (text, Role) -> ();
+  "remove_resource_permission": (text, Role) -> ();
+  "can_access_resource": (principal, text) -> (bool) query;
+  
+  // Access requests
+  "request_access": (text) -> (text);
+  "process_request": (text, bool) -> ();
+  "get_request_status": (text) -> (opt RequestStatus) query;
+  "get_all_pending_requests": () -> (vec text) query;
+}
